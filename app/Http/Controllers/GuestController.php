@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin;
-use App\Guest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Guest;
 
-class AdminController extends Controller
+class GuestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $admins = Admin::where('status', 'normal')->get();
-        $currentAdmin = Admin::where('id', Auth::id())->get();
-        return view('admin.admin', ['admins' => $admins, 'currentAdmin' => $currentAdmin]);
+        $keyword = $request->get('keyword');
+        $guests = Guest::all();
+
+        if ($keyword) {
+        
+        }
+
+        return view('guest.index', \compact('guests'));
     }
 
     /**
@@ -40,29 +42,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        $output = '';
-        $validator = Validator::make($request->all(), [
-            'adminFullname'=>'required',
-            'adminId'=>'required',
-            'adminPassword'=>'required',
-            'currentBuilding'=>'required',
-         ]);
-        if(!$validator->fails()) {
-            $admin = Admin::create([
-                'fullname' => $request->adminFullname,
-                'adminId' => $request->adminId,
-                'password' => $request->adminPassword,
-                'building'=> $request->currentBuilding,
-                'status' => 'normal',
-            ]);
-            $output .= 'Failed';
-        }
-        else {
-            $output .= 'Success';
-            // return response()->json(['code'=>500,'message'=>'Post Failed', 'building'=> $request->currentBuilding, 'fullname' =>$request->adminFullname],500);
-        }
-
-        return $output;
+        //
     }
 
     /**
@@ -73,7 +53,9 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        $guest = Guest::all();
+        $guest = Guest::find($id);
+        return view('guest.show',compact('guest'));
     }
 
     /**
@@ -107,6 +89,8 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $guest = Guest::find($id);
+        $guest->delete();
+        return redirect('/guest');
     }
 }

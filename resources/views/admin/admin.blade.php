@@ -1,28 +1,99 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-</head>
-
-<body>
-    <div class="container">
-        <h1>admin</h1>
-        @yield('admin')
+@extends('layouts.app')
+@section('content')
+<div class="cover-container d-flex justify-content-start mx-auto">
+    <div class="" style="flex: 2;">
+        @include('component.sidebar')
     </div>
+    <div class="" style="flex: 10;">
+        <div class="d-flex flex-column">
+            @include('component.header', ['header_title' => 'Admin'])
+            <div class="d-flex justify-content-between ml-4 mt-3">
+                <div class="mr-3" style="flex: 7;border-radius: 1em;">
+                    <div class="d-flex flex-column white-bg p-3">
+                        <table class="table table-hover table-striped" id="visitor_today_table">
+                            <div class="container">
+                                <div class="row">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Create Admin
+                                    </button>
+                                    @include('admin.create')
+                                </div>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th scope="col">NAMA</th>
+                                    <th scope="col">USERNAME</th>
+                                    <th scope="col">PASSWORD</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($admins as $admin)
+                                <tr>
+                                    <th>{{$admin->id}}</th>
+                                    <td>{{$admin->fullname}}</td>
+                                    <td>{{$admin->password}}</td>
+                                    <td>
+                                        <button class="btn">
+                                            <x-feathericon-edit class="" style="color: #2765F0;" />
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn ">
+                                            <x-feathericon-trash-2 class="sidebar-icon" style="color: #F68059;" />
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-</body>
-
-</html>
+    function createAdmin() {
+        var adminFullname = document.getElementById('adminFullname').value;
+        var adminId = document.getElementById('adminId').value;
+        var adminPassword = document.getElementById('adminPassword').value;
+        var currentBuilding = document.getElementById('currentBuilding').value;
+        console.log(adminFullname + '###' + adminId + '###' + adminPassword);
+        console.log(currentBuilding);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('admin.store') }}",
+            type: 'POST',
+            data: {
+                'adminFullname': adminFullname,
+                'adminId': adminId,
+                'adminPassword': adminPassword,
+                'building': currentBuilding,
+                '_token': CSRF_TOKEN,
+            },
+            success: function(data) {
+                console.log(data);
+                window.location.href = "{{ route('admin.index') }}";
+            },
+            error: function(data, textStatus, errorThrown) {
+                console.log(data);
+                console.log(textStatus);
+                console.log(errorThrown);
+                console.log("ERROR");
+            },
+        });
+    }
+</script>
+<!-- tambahin js
+js- tiga var
+isi dari var->inputan
+ajax -->
+@endsection

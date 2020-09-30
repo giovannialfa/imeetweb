@@ -22,18 +22,22 @@ Route::get('/dashboard', function () {
 });
 Route::get('/countVisitor', 'HomeController@countVisitor')->name('countVisitor');
 
-Route::get('/riwayat', 'RiwayatController@index');
-Route::get('/riwayat/{id}/edit','RiwayatController@edit');
-Route::get('/riwayat/{id}/show','RiwayatController@show');
-Route::delete('/riwayat/{id}','RiwayatController@destroy');
 
-Route::get('/admin', function () {
-    return view('admin.admin');
-});
+
+// Route::get('/admin', 'AdminController@index')->name('admin');
+// Route::get('/admin/create', 'AdminController@create');
+
+Route::resource('admin', 'AdminController');
+
+Route::get('/guest', 'GuestController@index')->name('guest');
+Route::delete('guests/{id}','GuestController@destroy');
+Route::get('/guest/{id}','GuestController@show');
 
 Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/', 'HomeController@index');
+
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::post('/home', 'HomeController@createChat')->name('home.createChat');
 

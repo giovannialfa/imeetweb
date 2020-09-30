@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="cover-container d-flex justify-content-start mx-auto">
     <div class="" style="flex: 2;">
@@ -6,48 +7,67 @@
     </div>
     <div class="" style="flex: 10;">
         <div class="d-flex flex-column">
-            @include('component.header', ['header_title' => 'Dashboard'])
+            @include('component.header', ['header_title' => 'Riwayat'])
             <div class="d-flex justify-content-between ml-4 mt-3">
-                <div class="mr-3" style="flex: 7;border-radius: 1em;">
+                <div class="mr-3" style="flex: 8;border-radius: 1em;">
                     <div class="d-flex flex-column white-bg p-3">
-                        <div class="title-content mb-3">Daftar Kunjungan</div>
                         <table class="table table-hover table-striped" id="visitor_today_table">
-                            <thead class="titletable">
-                                <tr>
+                            <thead>
+                                <tr style="width: 100%;">
                                     <th scope="col">NO</th>
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">NAMA</th>
                                     <th scope="col">TIPE</th>
+                                    <th scope="col">PERUSAHAAN</th>
                                     <th scope="col">TUJUAN</th>
-                                    <th scope="col">STATUS</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($guests as $guest)
                                 <tr>
                                     <th scope="row">{{$guest->id}}</th>
+                                    <td>{{$guest->id}}</td>
                                     <td>{{$guest->fullname}}</td>
                                     <td>{{$guest->type}}</td>
                                     <td>{{$guest->email}}</td>
-                                    <td>{{$guest->status}}</td>
+                                    <td><img class="chat-list-image" id="chat_guest_image" src="{{ $guest->imageUrl }}" alt="" style="width: 2em;"> {{$guest->nesessity}}</td>
+                                    <td>
+                                        <a href="{{url("guest/{$guest->id}")}}">
+                                            <button class="btn">
+                                                <x-feathericon-arrow-right-circle class="sidebar-icon" style="color: #75B79E;" />
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form action="{{ url("guests/{$guest->id}") }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn ">
+                                                <x-feathericon-trash-2 class="sidebar-icon" style="color: #F68059;"/></button>
+                                        </form></a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>NO</th>
+                                    <th>TANGGAL</th>
                                     <th>NAMA</th>
                                     <th>TIPE</th>
+                                    <th>PERUSAHAAN</th>
                                     <th>TUJUAN</th>
-                                    <th>STATUS</th>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
-                <div class="" style="flex: 3;">
+                <!-- <div class="" style="flex: 3;">
                     <div class="d-flex flex-column white-bg p-3">
                         <span class="title-content">Kunjungan Hari Ini</span>
-                        <!-- <div class="donut" style="--first: .01; --second: .01; --third: .01; ">
+                        <div class="donut" style="--first: .01; --second: .01; --third: .01; ">
                             <div class="donut__slice donut__slice__first"></div>
                             <div class="donut__slice donut__slice__second"></div>
                             <div class="donut__slice donut__slice__third"></div>
@@ -59,7 +79,7 @@
                                     Donut Chart
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div style="float: left; position: relative;">
                             <div style="width: 100%; height: 40px; position: absolute; top: 50%; left: 0; margin-top: -20px; line-height:19px; text-align: center; z-index: 999999999999999">
                                 99%<Br />
@@ -68,7 +88,7 @@
                             <canvas id="chDonut1" width="400"/>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -136,6 +156,7 @@
 
     });
 
+    
 </script>
 @endsection
 <!-- {{--<main>
@@ -194,3 +215,4 @@
             </div>
         </div>
     </main>--}} -->
+

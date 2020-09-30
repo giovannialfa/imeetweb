@@ -60,7 +60,6 @@
                         </td>
                         <td>
                             <form action="{{ url("riwayat/{$riwayat->id}")}}" method="post">
-
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger">DELETE</button>

@@ -18,10 +18,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Show the application dashboard.
@@ -89,8 +89,8 @@ class HomeController extends Controller
 
     public function chat()
     {
-        $users = User::all();
-        return view('chat', ['users' => $users]);
+        $guests = Guest::all();
+        return view('chat', ['guests' => $guests]);
     }
 
     public function guestroom(Request $request)
