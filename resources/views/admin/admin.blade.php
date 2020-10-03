@@ -12,9 +12,10 @@
                     <div class="d-flex flex-column white-bg p-3">
                         <table class="table table-hover table-striped" id="visitor_today_table">
                             <div class="container">
-                                <div class="row">
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Create Admin
+                                <div class="row d-flex flex-row-reverse mb-3">
+                                    <button type="button" class="btn btn-success sidebar-text" data-toggle="modal" data-target="#create_modal" style="border-radius: 5em;">
+                                        <x-feathericon-plus style="color: #FFFFFF;" />
+                                        Tambah Admin
                                     </button>
                                     @include('admin.create')
                                 </div>
@@ -35,9 +36,12 @@
                                     <td>{{$admin->fullname}}</td>
                                     <td>{{$admin->password}}</td>
                                     <td>
-                                        <button class="btn">
+                                        <button class="btn" data-toggle="modal" data-target="#edit_modal" style="border-radius: 5em;">
                                             <x-feathericon-edit class="" style="color: #2765F0;" />
                                         </button>
+                                        <div id="kontol">
+                    
+                                        </div>
                                     </td>
                                     <td>
                                         <button class="btn ">
@@ -91,6 +95,17 @@
             },
         });
     }
+
+    function editAdmin() {
+         
+    }
+</script>
+<script>
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function() {
+        $('#visitor_today_table').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
 </script>
 <!-- tambahin js
 js- tiga var

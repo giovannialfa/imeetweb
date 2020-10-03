@@ -20,8 +20,8 @@
                                     <th scope="col">TIPE</th>
                                     <th scope="col">PERUSAHAAN</th>
                                     <th scope="col">TUJUAN</th>
-                                    <th scope="col"></th>
-                                    <th scope="col"></th>
+                                    <th scope="col">LIHAT</th>
+                                    <th scope="col">hAPUS</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,19 +34,21 @@
                                     <td>{{$guest->email}}</td>
                                     <td><img class="chat-list-image" id="chat_guest_image" src="{{ $guest->imageUrl }}" alt="" style="width: 2em;"> {{$guest->nesessity}}</td>
                                     <td>
-                                        <a href="{{url("guest/{$guest->id}")}}">
-                                            <button class="btn">
-                                                <x-feathericon-arrow-right-circle class="sidebar-icon" style="color: #75B79E;" />
-                                            </button>
-                                        </a>
+                                        <!-- <a href="{{url("guest/{$guest->id}")}}"> -->
+                                        <!-- <button class="btn"> -->
+                                        <!-- <x-feathericon-arrow-right-circle class="sidebar-icon" style="color: #75B79E;" /> -->
+                                        <img src="{{ asset('asset/icon/right_icon.png') }}" alt="" style="outline: none; cursor: pointer;" onclick="showPage('{{$guest->id}}');" />
+                                        <!-- </button> -->
+                                        <!-- </a> -->
                                     </td>
                                     <td>
-                                        <form action="{{ url("guests/{$guest->id}") }}" method="post">
+                                        <form action="{{ url("guests/$guest->id") }}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn ">
-                                                <x-feathericon-trash-2 class="sidebar-icon" style="color: #F68059;"/></button>
-                                        </form></a>
+                                            <button class="btn" style="outline: black; padding:0;">
+                                                <img src="{{ asset('asset/icon/trash-2.png') }}" alt="" style="cursor: pointer;">
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -59,6 +61,8 @@
                                     <th>TIPE</th>
                                     <th>PERUSAHAAN</th>
                                     <th>TUJUAN</th>
+                                    <th>LIHAT</th>
+                                    <th>HAPUS</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -99,64 +103,14 @@
     $(document).ready(function() {
         $('#visitor_today_table').DataTable();
         $('.dataTables_length').addClass('bs-select');
-        var colors = ['#6A8CAF', '#A7E9AF', '#F68059'];
-        var donutOptions = {
-            cutoutPercentage: 70,
-            legend: {
-                position: 'bottom',
-                labels: {
-                    pointStyle: 'circle',
-                    usePointStyle: true,
-                    fontSize: 15,
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false,
 
-        };
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: "{{ route('countVisitor') }}",
-            type: 'GET',
-            data: {
-                _token: CSRF_TOKEN,
-            },
-            success: function(data) {
-                console.log(data);
-                var chDonutData1 = {
-                    labels: ['Guest', 'Hotel', 'Delivery'],
-                    datasets: [{
-                        backgroundColor: colors.slice(0, 3),
-                        borderWidth: 0,
-                        data: [data[0], data[1], data[2]]
-                    }]
-                };
-                var chDonut1 = document.getElementById("chDonut1");
-                if (chDonut1) {
-                    new Chart(chDonut1, {
-                        type: 'pie',
-                        data: chDonutData1,
-                        options: donutOptions,
-                    });
-                }
-                // $('#guest_room').html(data);
-            },
-            error: function(data, textStatus, errorThrown) {
-                console.log(data);
-                console.log(textStatus);
-                console.log(errorThrown);
-                console.log("ERROR");
-            },
-        })
 
     });
-
-    
+</script>
+<script>
+    function showPage(id) {
+        window.location.href = `/guest/${id}`;
+    }
 </script>
 @endsection
 <!-- {{--<main>
@@ -215,4 +169,3 @@
             </div>
         </div>
     </main>--}} -->
-

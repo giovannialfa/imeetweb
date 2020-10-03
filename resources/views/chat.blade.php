@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .input:focus{
+        outline: none;
+    }
+</style>
 <div class="cover-container d-flex justify-content-start mx-auto">
     <div class="" style="flex: 2;">
         @include('component.sidebar')
@@ -47,12 +52,12 @@
                             <!-- <form class="align-self-center form-group has-send send-message">
                                 <input class="form-control form-control-lg pl-5 custom-input" type="text" name="host" id="host" placeholder="Tulis Pesan disini...">
                             </form> -->
-                            <div class="d-flex justify-content-between input-group input-group-lg p-2" style="border: none;">
-                                <textarea type="text" class="" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="message" placeholder="Tulis Pesan disini..." maxlength="300" style="flex:11;"></textarea>
-                                <div class="input-group-prepend" style="flex: 1;">
-                                    <span class="input-group-text" id="inputGroup-sizing-default" onclick="sendMessage('{{ Auth::user()->building }}');">
+                            <div class="d-flex justify-content-between  p-2" >
+                                <textarea type="text" class="" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="message" placeholder="Tulis Pesan disini..." maxlength="300" style="flex:11; border:none; outline:none; resize:none;" autocomplete="off"></textarea>
+                                <div class="input-group-prepend justify-content-center" style="flex: 1;">
+                                    <div class="" id="inputGroup-sizing-default " onclick="sendMessage('{{ Auth::user()->building }}');">
                                         <x-feathericon-send class="chatting-icon-send" />
-                                    </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

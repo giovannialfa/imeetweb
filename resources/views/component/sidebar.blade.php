@@ -25,7 +25,7 @@
         </div>
             <div class="row pl-2 pr-2 pt-3 pb-3 mt-3" onclick="homePage()" style="cursor: pointer;" id="sidebar_menu">
                 <div class="col-md-3">
-                    <x-feathericon-database class="sidebar-icon " />
+                    <x-feathericon-database class="sidebar-icon" />
                 </div>
                 <div class="col-md-5 sidebar-text">
                     Beranda

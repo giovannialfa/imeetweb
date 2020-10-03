@@ -17,7 +17,7 @@
             height: 45px;
             left: 560px;
             top: 478px;
-            font-family: Open Sans;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-style: normal;
             font-weight: bold;
             font-size: 12px;

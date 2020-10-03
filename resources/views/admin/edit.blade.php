@@ -1,12 +1,12 @@
-<div class="modal fade" id="create_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <form action="" method="post">
-                @csrf  
+                @csrf
                 <div class="modal-body form-modal" style="margin-top: auto;">
                     <div class="form-group">
                         <label for="fullname" style="display: flex;">Nama</label>
-                        <input class="form-control" id="adminFullname" name="adminFullname" type="text" placeholder="Nama">
+                        <input class="form-control" id="adminFullname" name="adminFullname" type="text" placeholder="Nama" value="{{ $adminFullname }}">
                     </div>
                     <div class="form-group">
                         <label for="adminId" style="display: flex;">AdminId</label>
