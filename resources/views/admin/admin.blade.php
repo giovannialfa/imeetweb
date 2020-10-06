@@ -1,5 +1,19 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .page-link {
+        color: #44BBA0;
+        background: #FFFFFF;
+        border-color: #dee2e6
+    }
+
+    .page-item.active .page-link {
+        z-index: 3;
+        color: #44BBA0;
+        background-color: #ffffff;
+        border-color: #dee2e6
+    }
+</style>
 <div class="cover-container d-flex justify-content-start mx-auto">
     <div class="" style="flex: 2;">
         @include('component.sidebar')
@@ -27,6 +41,7 @@
                                     <th scope="col">PASSWORD</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
+                                    <th scope="col d-none"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,13 +50,12 @@
                                     <th>{{$admin->id}}</th>
                                     <td>{{$admin->fullname}}</td>
                                     <td>{{$admin->password}}</td>
+                                    <td class='d-none'>{{$admin->adminId}}</td>
                                     <td>
-                                        <button class="btn" data-toggle="modal" data-target="#edit_modal" style="border-radius: 5em;">
+                                        <button class="btn edit-btn" data-toggle="modal" data-target="#edit_modal" style="border-radius: 5em;">
                                             <x-feathericon-edit class="" style="color: #2765F0;" />
                                         </button>
-                                        <div id="kontol">
-                    
-                                        </div>
+                                        @include('admin.edit')
                                     </td>
                                     <td>
                                         <button class="btn ">
@@ -95,10 +109,44 @@
             },
         });
     }
+</script>
 
-    function editAdmin() {
-         
-    }
+<script>
+    $(document).ready(function() {
+        $('.edit-btn').on('click', function() {
+            $('#edit_modal').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").slice(0, 3).map(function() {
+                return $(this).text();
+            }).get();
+
+            $('#adminFullname1').val(data[0]);
+            $('#adminPassword1').val(data[1]);
+            $('#adminId1').val(data[2]);
+
+            console.log('#adminFullname1');
+        });
+
+
+        $('edit_form_id').on('submit', function(e){
+            e.preventDefault();
+
+            var id = $
+        })
+    });
+
+
+    // const clickModal = (fullname,adminId,password) => {
+    //     console.log(fullname)
+    //     console.log(adminId)
+    //     console.log(password)
+
+    //     document.querySelector('#adminFullname1').value = fullname
+    //     document.querySelector('#adminId1').value =  adminId
+    //     document.querySelector('#adminPassword1').value = password
+    // }
 </script>
 <script>
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

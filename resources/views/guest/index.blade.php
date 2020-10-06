@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .page-link{
+        color: #44BBA0;
+        background: #FFFFFF;
+        border-color: #dee2e6
+    }
+    .page-item.active .page-link {
+        z-index: 3;
+        color: #44BBA0;
+        background-color: #ffffff;
+        border-color: #dee2e6
+    }
+</style>
 <div class="cover-container d-flex justify-content-start mx-auto">
     <div class="" style="flex: 2;">
         @include('component.sidebar')
@@ -11,7 +24,7 @@
             <div class="d-flex justify-content-between ml-4 mt-3">
                 <div class="mr-3" style="flex: 8;border-radius: 1em;">
                     <div class="d-flex flex-column white-bg p-3">
-                        <table class="table table-hover table-striped" id="visitor_today_table">
+                        <table class="table table-hover table-striped" id="visitor_today_table" >
                             <thead>
                                 <tr style="width: 100%;">
                                     <th scope="col">NO</th>
@@ -21,7 +34,7 @@
                                     <th scope="col">PERUSAHAAN</th>
                                     <th scope="col">TUJUAN</th>
                                     <th scope="col">LIHAT</th>
-                                    <th scope="col">hAPUS</th>
+                                    <th scope="col">HAPUS</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -92,12 +92,24 @@ body {
 .chatting-room {
     width: 100%;
     height: 34em;
+    background-color: #FAFAFA;
 }
 
 .list-user {
     width: 100%;
-    height: 34em;
+    height: 40em;
 }
+
+.chat-list{
+    border: none;
+}
+
+.chat-list-image{
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+}
+
 .chat-list-title {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-style: normal;
@@ -123,7 +135,7 @@ body {
 .chatting-time {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: normal;
     display: flex;
     align-items: center;
     color: #b0b0b0;
@@ -143,6 +155,7 @@ body {
     letter-spacing: 0.01em;
     max-width: 70%;
     text-align: right;
+    background: #FFFFFF;
 }
 
 .chatting-content-right {
@@ -154,10 +167,10 @@ body {
     align-items: flex-end;
     letter-spacing: 0.01em;
     color: #514b63;
-    background: #a7e9af;
     border-radius: 8px 8px 0px 8px;
     max-width: 70%;
     text-align: left;
+    background: #A7E9AF;
 }
 .chatting-header {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -196,4 +209,5 @@ body {
 }
 .chatting-icon-send {
     color: #b0b0b0;
+    align-items: center;
 }

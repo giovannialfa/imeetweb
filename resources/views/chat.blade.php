@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    .input:focus{
+    .input:focus {
         outline: none;
     }
 </style>
@@ -22,9 +22,9 @@
                         </div>
                         <div class="overflow-auto list-user">
                             @foreach($guests as $guest)
-                            <div class="d-flex justify-content-start p-3 chat-list" onclick="showChatroom('{{ $guest->fullname}}', '{{ $guest->imageUrl}}', '{{ $guest->guestId }}', '{{ $guest->staffId }}', '{{ Auth::user()->building }}');" id="{{ $guest->guestId }}" style="margin-bottom: 1em; cursor:pointer;">
+                            <div class="d-flex justify-content-start mt-3 chat-list" onclick="showChatroom('{{ $guest->fullname}}', '{{ $guest->imageUrl}}', '{{ $guest->guestId }}', '{{ $guest->staffId }}', '{{ Auth::user()->building }}');" id="{{ $guest->guestId }}" style="margin-bottom: 1em; cursor:pointer;">
                                 <div style="flex: 2;">
-                                    <img class="chat-list-image" src="{{ $guest->imageUrl }}" alt="" style="width: 100%;">
+                                    <img class="chat-list-image" src="{{ $guest->imageUrl }}" alt="">
                                 </div>
                                 <div class="d-flex flex-column align-content-start" style="flex: 10;">
                                     <div class="chat-list-title">{{ $guest->fullname }}</div>
@@ -39,7 +39,7 @@
                     <div class="d-flex flex-column white-bg" style="border-radius:1em;">
                         <div class="d-flex justify-content-start p-3 chatting-header" style="height: 10vh;">
                             <div style="flex: 1;">
-                                <img class="chat-list-image" id="chat_guest_image" src="" alt="" style="width: 100%;">
+                                <img class="chat-list-image" id="chat_guest_image" src="" alt="">
                             </div>
                             <div class="" style="flex: 10;">
                                 <div class="chat-list-title" id="chat_guest_fullname"></div>
@@ -52,9 +52,9 @@
                             <!-- <form class="align-self-center form-group has-send send-message">
                                 <input class="form-control form-control-lg pl-5 custom-input" type="text" name="host" id="host" placeholder="Tulis Pesan disini...">
                             </form> -->
-                            <div class="d-flex justify-content-between  p-2" >
+                            <div class="d-flex justify-content-between  p-2">
                                 <textarea type="text" class="" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="message" placeholder="Tulis Pesan disini..." maxlength="300" style="flex:11; border:none; outline:none; resize:none;" autocomplete="off"></textarea>
-                                <div class="input-group-prepend justify-content-center" style="flex: 1;">
+                                <div class="input-group-prepend justify-content-center" style="flex: 1; align-items:center;">
                                     <div class="" id="inputGroup-sizing-default " onclick="sendMessage('{{ Auth::user()->building }}');">
                                         <x-feathericon-send class="chatting-icon-send" />
                                     </div>
@@ -268,23 +268,71 @@
         var buildingCode;
         buildingCode = '200101';
         var guestId = localStorage.getItem('prevChatroomGuestId');
-        var guestHost = localStorage.getItem('prevChatroomGuestHost');
+        var guestHostId = localStorage.getItem('prevChatroomGuestHostId');
+        var building = localStorage.getItem('building');
         var messageContent = document.getElementById('message').value;
         if (messageContent != null) {
-            db.collection("messages").doc(buildingCode + '-' + guestHost + '-' + guestId).collection(buildingCode + '-' + guestHost + '-' + guestId).doc(timestamp).set({
+            db.collection("messages").doc(buildingCode + '-' + guestHostId + '-' + guestId).collection(buildingCode + '-' + guestHostId + '-' + guestId).doc(timestamp).set({
                     content: messageContent,
                     idFrom: buildingCode,
-                    idTo: guestHost,
+                    idTo: guestHostId,
                     timestamp: timestamp,
                     type: 0
                 }).then(function() {
                     document.getElementById('message').value = '';
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: "{{ route('sendNotification') }}",
+                        type: 'POST',
+                        data: {
+                            _token: CSRF_TOKEN,
+                            'staffId': guestHostId,
+                            'message': messageContent,
+                            'title': 'Admin ' + building,
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        },
+                        error: function(data, textStatus, errorThrown) {
+                            console.log(data);
+                            console.log(textStatus);
+                            console.log(errorThrown);
+                            console.log("ERROR");
+                        },
+                    })
                 })
                 .catch(function(error) {
                     console.error("Error adding document: ", error);
                 });
         }
     }
+
+    // function sendMessage($building) {
+    //     const timestamp = Date.now().toString();
+    //     var buildingCode;
+    //     buildingCode = '200101';
+    //     var guestId = localStorage.getItem('prevChatroomGuestId');
+    //     var guestHost = localStorage.getItem('prevChatroomGuestHost');
+    //     var messageContent = document.getElementById('message').value;
+    //     if (messageContent != null) {
+    //         db.collection("messages").doc(buildingCode + '-' + guestHost + '-' + guestId).collection(buildingCode + '-' + guestHost + '-' + guestId).doc(timestamp).set({
+    //                 content: messageContent,
+    //                 idFrom: buildingCode,
+    //                 idTo: guestHost,
+    //                 timestamp: timestamp,
+    //                 type: 0
+    //             }).then(function() {
+    //                 document.getElementById('message').value = '';
+    //             })
+    //             .catch(function(error) {
+    //                 console.error("Error adding document: ", error);
+    //             });
+    //     }
+    // }
 </script>
 <script>
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

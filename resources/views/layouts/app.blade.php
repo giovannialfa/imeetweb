@@ -28,6 +28,7 @@
                 font-size: 3.5rem;
             }
         }
+        
 
     </style>
     <!-- Custom styles for this template -->

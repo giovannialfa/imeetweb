@@ -25,6 +25,17 @@
         font-weight: 600;
         color: #514B63;
     }
+    .page-link{
+        color: #44BBA0;
+        background: #FFFFFF;
+        border-color: #dee2e6
+    }
+    .page-item.active .page-link {
+        z-index: 3;
+        color: #44BBA0;
+        background-color: #ffffff;
+        border-color: #dee2e6
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <link rel="stylesheet" type="text/css" href="../css/component.css">

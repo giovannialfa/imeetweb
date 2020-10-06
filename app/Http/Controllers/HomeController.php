@@ -118,4 +118,51 @@ class HomeController extends Controller
 
         // return response()->json($response);
     }
+
+    public function sendNotification(Request $request)
+    {
+        define('SERVER_API_KEY', 'AAAAvFgQPLk:APA91bEDASval_rpIunmFYOlp65Hz0BBsK00l5qUFYvs76HxsjyTB0LNpzu0GIry9vwWg0dJk4Raz9COONykTYz8sEm-3fhT-3kRo2lkH3ZEKtCRvOoD1FGw9DzifQGsdhwPWCZJrFBW');
+        // $user = User::where('staffId', $request->guestHostId)->get();
+        // $pairFCMToken = $user['fcmToken'];
+        // print($pairFCMToken);
+        // $fcmToken = ['edMO-v-8S4KpbLJs5Si7tL:APA91bGJp6Tq9lt1WZUV14HECCrvc0GX4RCZ_fZTeUsSuP5tIXYKo5wGCI12O7_cA6Bb-ZKfJENhUpItrvqz3JxYgVvtiXLMOVzpUQqAbFZByuT7evjr4rLT8lV1T1NvbCv5Z93dVWRF'];
+        // $fcmToken = ['fixYSJBgSeSOsthvcAppaO:APA91bEADd0X_QPmo0mN5SKLf3Gw6LqonDSCFqkHeWsmEO8haOYeLt80LjWeHIRkRvE8g4rCDq7DiTxh0JbkfTqPsq_3MbqMBTaVBW9pZiNlr5wW1XXaDhwwxwyaza2bIsbIQsj1oIzX'];
+        $guestHostFCMToken = User::where('staffId', $request->staffId)->value('fcmToken');
+
+        $fcmToken = [$guestHostFCMToken];
+        $header = [
+            'Authorization: Key=' . SERVER_API_KEY,
+            'Content-Type: Application/json'
+        ];
+
+        $msg = [
+            'title' => 'Testing Notification',
+            'body' => 'Testing Notification from Body'
+        ];
+
+        $payload = [
+            'registration_ids' => $fcmToken,
+            'notification' => [
+                "body" => $request->message,
+                "title" => $request->title
+            ],
+            'data' => $msg
+        ];
+
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($payload),
+            CURLOPT_HTTPHEADER => $header
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
 }

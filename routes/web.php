@@ -38,8 +38,8 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 
 Route::get('/', 'HomeController@index')->name('home');
-
 Route::post('/home', 'HomeController@createChat')->name('home.createChat');
+Route::post('/home','HomeController@sendNotification')->name('sendNotification');
 
 Route::get('/chat', 'HomeController@chat')->name('chat');
 

@@ -1,5 +1,18 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .page-link{
+        color: #44BBA0;
+        background: #FFFFFF;
+        border-color: #dee2e6
+    }
+    .page-item.active .page-link {
+        z-index: 3;
+        color: #44BBA0;
+        background-color: #ffffff;
+        border-color: #dee2e6
+    }
+</style>
 <div class="cover-container d-flex justify-content-start mx-auto">
     <div class="" style="flex: 2;">
         @include('component.sidebar')
@@ -11,7 +24,7 @@
                 <div class="mr-3" style="flex: 7;border-radius: 1em;">
                     <div class="d-flex flex-column white-bg p-3">
                         <div class="title-content mb-3">Daftar Kunjungan</div>
-                        <table class="table table-hover table-striped" id="visitor_today_table">
+                        <table class="table table-hover table-striped" id="visitor_today_table" style>
                             <thead class="titletable">
                                 <tr>
                                     <th scope="col">NO</th>
@@ -22,7 +35,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($guests as $guest)
+                                @foreach($guests  as $guest)
                                 <tr>
                                     <th scope="row">{{$guest->id}}</th>
                                     <td>{{$guest->fullname}}</td>
