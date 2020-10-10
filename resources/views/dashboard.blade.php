@@ -1,18 +1,195 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    .page-link{
+    .page-link {
         color: #44BBA0;
         background: #FFFFFF;
         border-color: #dee2e6
     }
+
     .page-item.active .page-link {
         z-index: 3;
         color: #44BBA0;
         background-color: #ffffff;
         border-color: #dee2e6
     }
+
+    .test-button {
+        width: 63px;
+        height: 24px;
+        border-radius: 15px;
+        color: white;
+        font-weight: 600;
+        background-color: #6A8CAF;
+        border: 0;
+        font-size: 12px;
+    }
+
+    .test-text {
+        color: #F68059;
+        font-size: 12px;
+    }
 </style>
+<style>
+    .print-container {
+        width: 560px;
+        height: 280px;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 20px rgba(148, 148, 148, 0.25);
+        border-radius: 12px;
+    }
+
+    .nama {
+        width: 149px;
+        height: 33px;
+
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 33px;
+        margin-top: 10px;
+        /* identical to box height */
+
+
+        /* Black primary */
+
+        color: #514B63;
+    }
+
+    .foto {
+        width: 100px;
+        height: 100px;
+
+        background: url(.png), #C4C4C4;
+        border-radius: 8px;
+        margin-top: 28px;
+        margin-left: 28px;
+    }
+
+    .nomor {
+        width: 100%;
+        height: 19px;
+
+        margin-top: 8px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        /* identical to box height */
+
+
+        /* Abu primary */
+
+        color: #B0B0B0;
+    }
+
+    .email-print {
+        width: 100%;
+        height: 19px;
+
+        margin-top: 8px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 19px;
+        /* identical to box height */
+
+
+        /* Abu primary */
+
+        color: #B0B0B0;
+    }
+
+    .data {
+        width: 100%;
+        height: 16px;
+
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+
+        /* Abu primary */
+
+        color: #B0B0B0;
+    }
+
+    .isi {
+        width: 100%;
+        height: 22px;
+
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+        /* identical to box height */
+
+        display: flex;
+        align-items: center;
+
+        /* Black primary */
+
+        color: #514B63;
+    }
+
+    .foto-visit {
+        width: 38px;
+        height: 38px;
+        border-radius: 4px;
+        background: url(.png), #C4C4C4;
+    }
+</style>
+<div class="container print-container mt-5 d-none">
+    <div class="row" id="print_page">
+        <div class="col-md-6">
+            <!-- <img class="chat-list-image" id="chat_guest_image"  alt="" style="width: 100%; height: 100%;"> -->
+            <div class="foto">
+                <img src="{{ asset('asset/icon/tes_foto.png') }}" alt="">
+            </div>
+
+            <div class="nama d-flex justify-content-start">Nabilla Izzati </div>
+            <div class="nomor d-flex justify-content-start">081154653985</div>
+            <div class="nomor d-flex justify-content-start">Incredible inc</div>
+            <div class="email-print d-flex justify-content-start">Nabillaizzati33@gmail.com</div>
+        </div>
+        <div class="col-md-6">
+            <div class="data d-flex justify-content-start" style="margin-top: 28px;">
+                Tipe Pengunjung
+            </div>
+            <div class="isi d-flex justify-content-start" style="margin-top: 8px;">
+                Visitor
+            </div>
+            <div class="data d-flex justify-content-start" style="margin-top: 24px;">
+                Gedung
+            </div>
+            <div class="isi d-flex justify-content-start" style="margin-top: 8px;">
+                Graha Kemenpora
+            </div>
+            <div class="data d-flex justify-content-start" style="margin-top: 24px;">
+                Mengunjungi
+            </div>
+            <div class="row " style="margin-top: 12px;">
+                <div class="col-md-2">
+                    <div class="foto-visit">
+                        <img src="{{ asset('asset/icon/visit.png') }}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="isi d-flex justify-content-start">
+                        Santo Pantek
+                    </div>
+                    <div class="data d-flex justify-content-start" style="margin-top: 3px;">
+                        Deputi 1
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="cover-container d-flex justify-content-start mx-auto">
     <div class="" style="flex: 2;">
         @include('component.sidebar')
@@ -21,8 +198,8 @@
         <div class="d-flex flex-column">
             @include('component.header', ['header_title' => 'Dashboard'])
             <div class="d-flex justify-content-between ml-4 mt-3">
-                <div class="mr-3" style="flex: 7;border-radius: 1em;">
-                    <div class="d-flex flex-column white-bg p-3">
+                <div class="mr-3" style="flex: 8;border-radius: 1em;">
+                    <div class="d-flex flex-column white-bg p-3" style="box-shadow: 0px 2px 15px rgba(221, 221, 221, 0.15);">
                         <div class="title-content mb-3">Daftar Kunjungan</div>
                         <table class="table table-hover table-striped" id="visitor_today_table" style>
                             <thead class="titletable">
@@ -35,13 +212,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($guests  as $guest)
+                                @foreach($guests as $guest)
                                 <tr>
                                     <th scope="row">{{$guest->id}}</th>
                                     <td>{{$guest->fullname}}</td>
                                     <td>{{$guest->type}}</td>
                                     <td>{{$guest->email}}</td>
-                                    <td>{{$guest->status}}</td>
+                                    <td>
+                                        @if($guest->status =='pending')
+
+                                        {{ csrf_field() }}
+                                        {{ method_field('PUT') }}
+
+                                        <div class="row pending" id="cetak">
+                                            <div class="col-md-6 acc" style="color: #6A8CAF;" onclick="accept(this);">
+                                                <x-feathericon-check-circle class="sidebar-icon" />
+                                            </div>
+                                            <div class="col-md-6" onclick="reject(this)">
+                                                <x-feathericon-x-circle class="sidebar-icon" style="color: #F68059;" />
+                                            </div>
+                                        </div>
+
+                                        <button class="test-button printPage d-none" href="http://127.0.0.1:8000/print">Cetak</button>
+                                        <div class='test-text d-none'>
+                                            Ditolak
+                                        </div>
+                                        @elseif($guest->status =='accepted')
+                                        <button class='test-button print-page d-none' href="http://127.0.0.1:8000/print">
+                                            Cetak
+                                        </button>
+                                        @elseif($guest->status =='rejected')
+                                        <div class='test-text'>
+                                            Ditolak
+                                        </div>
+                                        @elseif($guest->status =='')
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -57,8 +263,8 @@
                         </table>
                     </div>
                 </div>
-                <div class="" style="flex: 3;">
-                    <div class="d-flex flex-column white-bg p-3">
+                <div class="" style="flex: 2;">
+                    <div class="d-flex flex-column white-bg p-3" style="box-shadow: 0px 2px 15px rgba(221, 221, 221, 0.15);">
                         <span class="title-content">Kunjungan Hari Ini</span>
                         <!-- <div class="donut" style="--first: .01; --second: .01; --third: .01; ">
                             <div class="donut__slice donut__slice__first"></div>
@@ -78,7 +284,7 @@
                                 99%<Br />
                                 Total
                             </div>
-                            <canvas id="chDonut1" width="400"/>
+                            <canvas id="chDonut1" width="400" />
                         </div>
                     </div>
                 </div>
@@ -120,7 +326,7 @@
                 _token: CSRF_TOKEN,
             },
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 var chDonutData1 = {
                     labels: ['Guest', 'Hotel', 'Delivery'],
                     datasets: [{
@@ -148,7 +354,63 @@
         })
 
     });
+</script>
 
+<script type="text/javascript">
+    // $(document).ready(function() {
+
+    //     var pend = $('#cetak');
+
+    //     pend.on('click', '.acc', function() {
+
+    //         $tr = $(this).closest('tr');
+    //         if ($($tr).hasClass('child')) {
+    //             $tr = $tr.prev('.parent')
+    //         }
+
+    //         var change = pend.row($tr).change();
+    //         console.log(change);
+
+    //     });
+    // })
+
+    //print
+    $('button.printPage').click(function() {
+        // window.print();
+        // return false;
+        var prtContent = document.getElementById("print_page");
+        var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+
+        button.classList.remove('d-none')
+    });
+
+
+    function accept(event) {
+        var cetak = event.parentElement.classList.add('d-none')
+        var button = event.parentElement.parentElement.querySelector(".test-button")
+        button.classList.remove('d-none')
+
+
+    }
+
+    function reject(event) {
+        // document.getElementById("cetak").innerHTML = "rejected";
+        var cetak = event.parentElement.classList.add('d-none')
+        var text = event.parentElement.parentElement.querySelector(".test-text")
+        text.classList.remove('d-none')
+    }
+
+
+    // document.getElementById("cetak").addEventListener("click",aggreCheck);
+
+    // function aggreCheck(){
+    //     document.getElementById("cetak").innerHTML = "CETAK";
+    // }
 </script>
 @endsection
 <!-- {{--<main>

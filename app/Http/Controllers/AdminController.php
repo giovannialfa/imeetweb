@@ -17,9 +17,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::where('status', 'normal')->get();
-        $currentAdmin = Admin::where('id', Auth::id())->get();
-        return view('admin.admin', ['admins' => $admins, 'currentAdmin' => $currentAdmin]);
+
+        $adms = Admin::all();
+        return view('admin.admin')->with('adms',$adms);
+        // $admins = Admin::where('status', 'normal')->get();
+        // $currentAdmin = Admin::where('id', Auth::id())->get();
+        // return view('admin.admin', ['admins' => $admins, 'currentAdmin' => $currentAdmin]);
     }
 
     /**
@@ -40,29 +43,49 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        $output = '';
-        $validator = Validator::make($request->all(), [
-            'adminFullname'=>'required',
-            'adminId'=>'required',
-            'adminPassword'=>'required',
-            'currentBuilding'=>'required',
-         ]);
-        if(!$validator->fails()) {
-            $admin = Admin::create([
-                'fullname' => $request->adminFullname,
-                'adminId' => $request->adminId,
-                'password' => $request->adminPassword,
-                'building'=> $request->currentBuilding,
-                'status' => 'normal',
-            ]);
-            $output .= 'Failed';
-        }
-        else {
-            $output .= 'Success';
-            // return response()->json(['code'=>500,'message'=>'Post Failed', 'building'=> $request->currentBuilding, 'fullname' =>$request->adminFullname],500);
-        }
+        $adms = Admin::where('status', 'normal')->get();
+        $this->validate($request,[
+            'fullname' => 'required',
+            'adminId' => 'required',
+            'password' => 'required',
+        ]);
 
-        return $output;
+        $adms = new Admin;
+
+        $adms->fullname = $request->input('fullname');
+        $adms->adminId = $request->input('adminId');
+        $adms->password = $request->input('password');
+        $adms->building = 'Graha';
+        $adms->status = 'normal';
+
+        
+        $adms->save();
+
+        return redirect('/admin')->with('success','Data Saved');
+
+        // $output = '';
+        // $validator = Validator::make($request->all(), [
+        //     'adminFullname'=>'required',
+        //     'adminId'=>'required',
+        //     'adminPassword'=>'required',
+        //     'currentBuilding'=>'required',
+        //  ]);
+        // if(!$validator->fails()) {
+        //     $admin = Admin::create([
+        //         'fullname' => $request->adminFullname,
+        //         'adminId' => $request->adminId,
+        //         'password' => $request->adminPassword,
+        //         'building'=> $request->currentBuilding,
+        //         'status' => 'normal',
+        //     ]);
+        //     $output .= 'Failed';
+        // }
+        // else {
+        //     $output .= 'Success';
+        //     // return response()->json(['code'=>500,'message'=>'Post Failed', 'building'=> $request->currentBuilding, 'fullname' =>$request->adminFullname],500);
+        // }
+
+        // return $output;
     }
 
     /**
@@ -96,7 +119,36 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'fullname' => 'required',
+            'adminId' => 'required',
+            'password' => 'required',
+        ]);
+
+        $adms = Admin::find($id);
+
+        $adms->fullname = $request->input('fullname');
+        $adms->adminId = $request->input('adminId');
+        $adms->password = $request->input('password');
+        $adms->building = 'Graha';
+        $adms->status = 'normal';
+
+        
+        $adms->save();
+
+        return redirect('/admin')->with('success','Data Updated');
+        
+        
+        
+        // $admin = Admin::find($id);
+
+        // // $admin->adminFullname = $request->input('fullname');
+        // // $admin->adminId = $request->input('adminId');
+        // // $admin->adminPassword = $request->input('password');
+        // if (Admin::where('id',$id)->exists()) {
+        //     $updated = $admin->fill($request->all())->save();
+        //     return 'Done';
+        // }
     }
 
     /**
@@ -107,6 +159,29 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $adms = Admin::find($id);
+        $adms->delete();
+
+        
+        return redirect('/admin')->with('success','Data Deleted');
+    }
+
+    function AdminUpdate(Request $request) {
+        $admin = Admin::where('id' ,$request->id);
+
+        // $admin->adminFullname = $request->input('fullname');
+        // $admin->adminId = $request->input('adminId');
+        // $admin->adminPassword = $request->input('password');
+        if (
+            // Admin::where('id',$request->id)->exists()
+            $admin
+        ) {
+            // 'fullname' => $request->fullname, 'adminId' => $request->adminId, 'password' => $request->password
+            $updated = $admin->fill($request->all())->save();
+            return 'OK';
+        }
+        else {
+            return 'Error';
+        }
     }
 }

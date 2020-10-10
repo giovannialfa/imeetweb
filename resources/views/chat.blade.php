@@ -15,12 +15,12 @@
             <div class="d-flex justify-content-between ml-4 mt-3">
                 <div class="mr-3" style="flex: 3;border-radius: 1em; box-shadow: 1px 0px 4px #E9E9E9; border-radius:3em;">
                     <div class="contact-list d-flex flex-column white-bg" style="border-radius:1em;">
-                        <div class="form">
+                        <div class="form" style="box-shadow: 0px 0px 15px rgba(221, 221, 221, 0.15);">
                             <div class="form-group mx-sm-3 mb-2 d-flex justify-content-start">
                                 <input type="text" class="form-control" placeholder="Cari">
                             </div>
                         </div>
-                        <div class="overflow-auto list-user">
+                        <div class="overflow-auto list-user" style="box-shadow: 0px 0px 15px rgba(221, 221, 221, 0.15);">
                             @foreach($guests as $guest)
                             <div class="d-flex justify-content-start mt-3 chat-list" onclick="showChatroom('{{ $guest->fullname}}', '{{ $guest->imageUrl}}', '{{ $guest->guestId }}', '{{ $guest->staffId }}', '{{ Auth::user()->building }}');" id="{{ $guest->guestId }}" style="margin-bottom: 1em; cursor:pointer;">
                                 <div style="flex: 2;">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="chat-room mr-3" style="flex: 6;box-shadow: 1px 0px 4px #E9E9E9; border-radius:1em;">
+                <div class="chat-room mr-3" style="flex: 6; box-shadow: 1px 0px 4px #E9E9E9; border-radius:1em;">
                     <div class="d-flex flex-column white-bg" style="border-radius:1em;">
                         <div class="d-flex justify-content-start p-3 chatting-header" style="height: 10vh;">
                             <div style="flex: 1;">

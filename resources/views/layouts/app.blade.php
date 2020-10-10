@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

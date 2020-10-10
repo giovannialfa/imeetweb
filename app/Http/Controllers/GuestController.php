@@ -56,6 +56,7 @@ class GuestController extends Controller
         $guest = Guest::all();
         $guest = Guest::find($id);
         return view('guest.show',compact('guest'));
+
     }
 
     /**
@@ -92,5 +93,16 @@ class GuestController extends Controller
         $guest = Guest::find($id);
         $guest->delete();
         return redirect('/guest');
+    }
+
+    public function showGuest()
+    {
+
+        $guests = Guest::all();
+        // $guest = Guest::find($id);
+        return view('print', compact('guests'));
+
+        // return view('print',compact('pguest'));
+
     }
 }

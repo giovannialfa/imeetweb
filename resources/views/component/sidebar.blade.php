@@ -16,7 +16,7 @@
     </div>
 </div>
 /#sidebar-wrapper -->
-<div class="d-flex flex-column white-bg pl-4 pr-4"  style="height: calc(100vh - 80px);">
+<div class="d-flex flex-column white-bg pl-4 pr-4 sidebar-row "  style="height: calc(100vh - 80px);">
     <div class="d-flex flex-column" style="min-height: 100%;">
         <div class="row pl-2 pr-2 pb-3 mt-3">
             <div class="header-part white-bg pb-5 pl-4 pr-5 pt-2">
